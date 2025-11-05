@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://rh7bou8nqk33"]
+
+[ext_resource type="PackedScene" uid="uid://c313yn1vc8ntb" path="res://scenes/tile.tscn" id="2_yqjtg"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="Tiles" type="Node" parent="."]
+
+[node name="Tile" parent="Tiles" instance=ExtResource("2_yqjtg")]
+offset_left = -53.0
+offset_top = -54.0
+offset_right = -37.0
+offset_bottom = -38.0
+
+[node name="Tile2" parent="Tiles" instance=ExtResource("2_yqjtg")]
+offset_left = -37.0
+offset_top = -54.0
+offset_right = -21.0
+offset_bottom = -38.0
+
+[node name="Tile3" parent="Tiles" instance=ExtResource("2_yqjtg")]
+offset_left = -21.0
+offset_top = -54.0
+offset_right = -5.0
+offset_bottom = -38.0
