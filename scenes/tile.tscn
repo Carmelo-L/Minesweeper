@@ -9,7 +9,7 @@
 offset_right = 16.0
 offset_bottom = 16.0
 texture_normal = ExtResource("1_3dk36")
-texture_pressed = ExtResource("2_ywnoi")
+texture_pressed = ExtResource("1_3dk36")
 texture_hover = ExtResource("1_3dk36")
 texture_disabled = ExtResource("2_ywnoi")
 script = ExtResource("3_jy7pm")

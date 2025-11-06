@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://rh7bou8nqk33"]
+[gd_scene load_steps=5 format=3 uid="uid://rh7bou8nqk33"]
 
+[ext_resource type="Script" uid="uid://dud5ino2oqs5i" path="res://scripts/mine_field.gd" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://c313yn1vc8ntb" path="res://scenes/tile.tscn" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://cs5bwl7bv7iuv" path="res://scripts/grid_container.gd" id="3_lnu2h"]
+
+[sub_resource type="TileSet" id="TileSet_uwrxv"]
+physics_layer_0/collision_layer = 1
 
 [node name="Game" type="Node2D"]
 
@@ -10,19 +15,39 @@ zoom = Vector2(2, 2)
 [node name="Tiles" type="Node" parent="."]
 
 [node name="Tile" parent="Tiles" instance=ExtResource("2_yqjtg")]
-offset_left = -53.0
-offset_top = -54.0
-offset_right = -37.0
-offset_bottom = -38.0
+offset_left = -252.0
+offset_top = -104.0
+offset_right = -236.0
+offset_bottom = -88.0
 
 [node name="Tile2" parent="Tiles" instance=ExtResource("2_yqjtg")]
-offset_left = -37.0
-offset_top = -54.0
-offset_right = -21.0
-offset_bottom = -38.0
+offset_left = -252.0
+offset_top = -84.0
+offset_right = -236.0
+offset_bottom = -68.0
 
 [node name="Tile3" parent="Tiles" instance=ExtResource("2_yqjtg")]
-offset_left = -21.0
-offset_top = -54.0
-offset_right = -5.0
-offset_bottom = -38.0
+offset_left = -252.0
+offset_top = -64.0
+offset_right = -236.0
+offset_bottom = -48.0
+
+[node name="MineField" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_uwrxv")
+script = ExtResource("2_lnu2h")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -154.0
+offset_top = -91.0
+offset_right = 91.0
+offset_bottom = 79.0
+
+[node name="GridContainer" type="GridContainer" parent="Control"]
+layout_mode = 0
+offset_left = -118.0
+offset_top = -76.0
+offset_right = 39.0
+offset_bottom = 18.0
+script = ExtResource("3_lnu2h")

@@ -1,6 +1,6 @@
-extends TextureButton
+class_name Tile
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+extends TextureButton
 
 const LEFT_CLICK: int 	= 1
 const RIGHT_CLICK: int 	= 2
