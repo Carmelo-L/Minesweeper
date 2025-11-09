@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://rh7bou8nqk33"]
+
+[ext_resource type="Script" uid="uid://dud5ino2oqs5i" path="res://scripts/mine_field.gd" id="2_lnu2h"]
+
+[sub_resource type="TileSet" id="TileSet_uwrxv"]
+physics_layer_0/collision_layer = 1
+
+[node name="Game" type="Node2D"]
+
+[node name="Tiles" type="Node" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="MineField" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_uwrxv")
+script = ExtResource("2_lnu2h")

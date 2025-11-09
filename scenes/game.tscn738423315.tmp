@@ -1,0 +1,259 @@
+[gd_scene load_steps=5 format=3 uid="uid://rh7bou8nqk33"]
+
+[ext_resource type="Script" uid="uid://dud5ino2oqs5i" path="res://scripts/mine_field.gd" id="2_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://c313yn1vc8ntb" path="res://scenes/tile.tscn" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://cs5bwl7bv7iuv" path="res://scripts/grid_container.gd" id="3_lnu2h"]
+
+[sub_resource type="TileSet" id="TileSet_uwrxv"]
+physics_layer_0/collision_layer = 1
+
+[node name="Game" type="Node2D"]
+
+[node name="Tiles" type="Node" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="MineField" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_uwrxv")
+script = ExtResource("2_lnu2h")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -123.0
+offset_top = -85.0
+offset_right = 122.0
+offset_bottom = 85.0
+
+[node name="GridContainer" type="GridContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -78.0
+offset_top = -88.0
+offset_right = 78.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 8
+script = ExtResource("3_lnu2h")
+
+[node name="Tile" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile2" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile3" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile4" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile5" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile6" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile7" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile8" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile9" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile10" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile11" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile12" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile13" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile14" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile15" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile16" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile17" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile18" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile19" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile20" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile21" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile22" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile23" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile24" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile25" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile26" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile27" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile28" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile29" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile30" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile31" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile32" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile33" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile34" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile35" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile36" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile37" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile38" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile39" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile40" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile41" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile42" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile43" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile44" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile45" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile46" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile47" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile48" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile49" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile50" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile51" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile52" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile53" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile54" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile55" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile56" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile57" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile58" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile59" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile60" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile61" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile62" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile63" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile64" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile65" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile66" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile67" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile68" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile69" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile70" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile71" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
+
+[node name="Tile72" parent="Control/GridContainer" instance=ExtResource("2_yqjtg")]
+layout_mode = 2
