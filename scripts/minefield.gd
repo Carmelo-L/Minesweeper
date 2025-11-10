@@ -5,22 +5,27 @@ const RIGHT_CLICK: int 	= 2
 const NO_SPRITE: int 	= -1
 const EMPTY: int		= 0
 const BOMB: int 		= 1
-const EMPTY_TILE_SPR 		= {
+const EMPTY_TILE_SPR 	= {
 	"id": 0,
 	"atlas": Vector2i(0,0),
 }
-const TILE_SPR 				= {
+const TILE_SPR 			= {
 	"id": 1,
 	"atlas": Vector2i(0,0),
 }
-const FLAG_SPR 				= {
+const FLAG_SPR 			= {
 	"id": 2,
 	"atlas": Vector2i(0,0),
 }
-const BOMB_SPR				= {
+const BOMB_SPR			= {
 	"id": 3,
 	"atlas": Vector2i(0,0),
 }
+# atlas coordinates of number sprites from 1-8
+const NUMBER_SPRITES: Array[Vector2i] = [ Vector2i(1,2), Vector2i(0,0), Vector2i(1,2), 
+		Vector2i(1,0), Vector2i(2,0), Vector2i(0,1), Vector2i(1,1), 
+		Vector2i(2,1), Vector2i(1,2), Vector2i(0,2)]
+const NUM_ID: int = 13
 
 @onready var minefield_bottom: TileMapLayer = $"Minefield - Bottom"
 @onready var minefield_middle: TileMapLayer = $"Minefield - Middle"
@@ -99,6 +104,7 @@ func _remove_tile(coords: Vector2i) -> void:
 
 
 ## coords: coordinates of the given tilemap cell
+# @tutorial: https://tait.tech/2020/09/12/minesweeper/
 func _clear_adj_tiles(coords: Vector2i) -> int:
 	var m_coords: Vector2i 	= _tile_coords_to_matrix(coords)
 	var adj_bombs: int 		= EMPTY
@@ -121,8 +127,9 @@ func _clear_adj_tiles(coords: Vector2i) -> int:
 		for y in range(m_coords.y - 1, m_coords.y + 2):
 			adj_bombs += _clear_adj_tiles(_matrix_coords_to_tile(Vector2i(x,y)))
 	
+	if adj_bombs > 0:
+		minefield_middle.set_cell(coords, NUM_ID, NUMBER_SPRITES[adj_bombs - 1])
 	
-	#display_adj_bombs
 	return EMPTY
 
 
@@ -134,7 +141,7 @@ func _click_tile(coords: Vector2i) -> void:
 		_remove_tile(coords)
 		_clear_adj_tiles(coords)
 
-
+# @tutorial: https://tait.tech/2020/09/12/minesweeper/
 func _generate_bombs() -> void:
 	var random = RandomNumberGenerator.new()
 	var bomb_count: int = 0
