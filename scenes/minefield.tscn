@@ -46,6 +46,9 @@ sources/13 = SubResource("TileSetAtlasSource_ycs5g")
 
 [node name="Minefield" type="Node2D"]
 script = ExtResource("1_0uxvm")
+rows = 20
+cols = 30
+bombs = 40
 
 [node name="Minefield - Bottom" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_fmb0j")

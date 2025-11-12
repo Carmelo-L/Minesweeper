@@ -22,9 +22,9 @@ const BOMB_SPR			= {
 	"atlas": Vector2i(0,0),
 }
 # atlas coordinates of number sprites from 1-8
-const NUMBER_SPRITES: Array[Vector2i] = [ Vector2i(1,2), Vector2i(0,0), Vector2i(1,2), 
+const NUMBER_SPRITES: Array[Vector2i] = [ Vector2i(1,2), Vector2i(0,0), 
 		Vector2i(1,0), Vector2i(2,0), Vector2i(0,1), Vector2i(1,1), 
-		Vector2i(2,1), Vector2i(1,2), Vector2i(0,2)]
+		Vector2i(2,1), Vector2i(0,2)]
 const NUM_ID: int = 13
 
 @onready var minefield_bottom: TileMapLayer = $"Minefield - Bottom"
@@ -36,13 +36,17 @@ const NUM_ID: int = 13
 @export var bombs: int	= 8
 
 var minefield: Array[Array] = []
+var flags: int = bombs
+
 
 func _initialise_minefield() -> void:
-	var left_x: int		= -(rows / 2)
-	var right_x: int	= rows / 2
-	var top_y: int		= -(cols / 2)
-	var bottom_y: int	= cols / 2
-	
+	# floor division on bottom edge and ceiling division on upper edge, 
+	# avoids problems with uneven numbers
+	var left_x: int		= -(cols / 2)
+	var right_x: int	= ceil(cols / 2.0)
+	var top_y: int		= -(rows / 2)
+	var bottom_y: int	= ceil(rows / 2.0)
+
 	var h: int = top_y
 	while h != bottom_y:
 
@@ -63,11 +67,17 @@ func _initialise_minefield() -> void:
 func _add_or_remove_flag(coords: Vector2i) -> void:
 	var top_cell_id: int = minefield_top.get_cell_source_id(coords)
 	var mid_cell_id: int = minefield_middle.get_cell_source_id(coords)
+	var m_coords: Vector2i = _tile_coords_to_matrix(coords)
 	
-	if top_cell_id == NO_SPRITE and mid_cell_id != NO_SPRITE:
+	if (top_cell_id == NO_SPRITE and 
+			mid_cell_id != NO_SPRITE and 
+			minefield[m_coords.x][m_coords.y].checked == false):
+				
 		minefield_top.set_cell(coords, FLAG_SPR.id, FLAG_SPR.atlas)
+		flags -= 1
 	elif top_cell_id == FLAG_SPR.id:
 		minefield_top.erase_cell(coords)
+		flags += 1
 
 
 ## coords: coordinates of the given matrix index
@@ -100,7 +110,17 @@ func _remove_tile(coords: Vector2i) -> void:
 		minefield_middle.set_cell(coords, BOMB_SPR.id, BOMB_SPR.atlas)
 		_expose_bombs()
 	elif minefield[m_coords.x][m_coords.y].bomb == false:
-		minefield_middle.erase_cell(coords)
+		_clear_adj_tiles(coords)
+
+
+func _clear_tile(coords: Vector2i) -> void:
+	var m_coords: Vector2i 	= _tile_coords_to_matrix(coords)
+	var top_cell_id: int = minefield_top.get_cell_source_id(coords)
+	
+	minefield_middle.erase_cell(coords)
+	if top_cell_id == FLAG_SPR.id: flags += 1
+	minefield_top.erase_cell(coords)
+	minefield[m_coords.x][m_coords.y].checked = true
 
 
 ## coords: coordinates of the given tilemap cell
@@ -120,9 +140,8 @@ func _clear_adj_tiles(coords: Vector2i) -> int:
 	if minefield[m_coords.x][m_coords.y].bomb == true:
 		return BOMB
 	
-	_remove_tile(coords)
-	minefield[m_coords.x][m_coords.y].checked = true
-		
+	_clear_tile(coords)
+	
 	for x in range(m_coords.x - 1, m_coords.x + 2):
 		for y in range(m_coords.y - 1, m_coords.y + 2):
 			adj_bombs += _clear_adj_tiles(_matrix_coords_to_tile(Vector2i(x,y)))
@@ -148,9 +167,9 @@ func _generate_bombs() -> void:
 	
 	while bomb_count < bombs:
 		var r: int = random.randi_range(1, rows * cols) - 1
-		var x_coord: int = r % cols
-		var y_coord: int = r / rows
-		
+		var y_coord: int = r % rows
+		var x_coord: int = r / cols
+
 		if minefield[x_coord][y_coord].bomb == false:
 			minefield[x_coord][y_coord].bomb = true
 			bomb_count += 1

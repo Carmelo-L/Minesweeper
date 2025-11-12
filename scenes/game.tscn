@@ -10,4 +10,6 @@
 zoom = Vector2(2, 2)
 
 [node name="Minefield" parent="." instance=ExtResource("5_iywne")]
-bombs = null
+rows = 9
+cols = 11
+bombs = 8
