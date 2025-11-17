@@ -46,14 +46,15 @@ const NUM_ID: int = 13
 @export var bombs: int	= 8
 
 var flags: int = bombs
+var first_click: bool = true
 
-## Sets minefield background and tile layer to appropriate sprites and sets 
-##	matrix values to false
+## Sets minefield background, tile, and contents layer to appropriate sprites
 func _initialise_minefield() -> void:
 	for c in cols:
 		for r in rows:
 			var coords:= Vector2i(c, r)
 			minefield_background.set_cell(coords, EMPTY_TILE_SPR.id, EMPTY_TILE_SPR.atlas)
+			minefield_contents.set_cell(coords, NO_SPRITE)
 			minefield_tile.set_cell(coords, TILE_SPR.id, TILE_SPR.atlas)
 
 
@@ -197,9 +198,21 @@ func _generate_bombs() -> void:
 			bomb_count += 1
 
 
-func _ready():
+## Regenerates map until the given coords are in an empty space
+func _start_empty(coords: Vector2i) -> void:
+	while (minefield_contents.get_cell_source_id(coords) != NO_SPRITE or
+			_get_adj_bombs(_get_adj_cells(coords)) != 0):
+		_start_game()
+	first_click = false
+
+
+func _start_game() -> void:
 	_initialise_minefield()
 	_generate_bombs()
+
+
+func _ready():
+	_start_game()
 
 
 func _input(event: InputEvent) -> void:
@@ -212,4 +225,6 @@ func _input(event: InputEvent) -> void:
 		RIGHT_CLICK:
 			_add_or_remove_flag(coords)
 		LEFT_CLICK:
+			if first_click:
+				_start_empty(coords)
 			_click_tile(coords)

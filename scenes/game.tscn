@@ -11,4 +11,4 @@ position = Vector2(-62, -55)
 zoom = Vector2(2, 2)
 
 [node name="Minefield" parent="." instance=ExtResource("5_iywne")]
-position = Vector2(-101, -111)
+position = Vector2(-160, -166)
