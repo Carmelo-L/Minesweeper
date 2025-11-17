@@ -52,10 +52,6 @@ sources/4 = SubResource("TileSetAtlasSource_fmb0j")
 
 [node name="Minefield" type="Node2D"]
 script = ExtResource("1_0uxvm")
-bombs = 10
-
-[node name="Minefield - Checked" type="TileMapLayer" parent="."]
-tile_set = SubResource("TileSet_fmb0j")
 
 [node name="Minefield - Background" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_fmb0j")

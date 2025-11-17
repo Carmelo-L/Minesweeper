@@ -7,9 +7,8 @@
 [node name="Tiles" type="Node" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-62, -55)
 zoom = Vector2(2, 2)
 
 [node name="Minefield" parent="." instance=ExtResource("5_iywne")]
-rows = 9
-cols = 11
-bombs = 8
+position = Vector2(-101, -111)
