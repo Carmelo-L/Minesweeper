@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chy7qguuvbars"
-path="res://.godot/imported/bomb_background.png-b0fee70d75c3ef7721afdd1665603146.ctex"
+uid="uid://dskqequpyddms"
+path="res://.godot/imported/Radio_button.png-397417f961d000468958d55be2f601f2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/bomb_background.png"
-dest_files=["res://.godot/imported/bomb_background.png-b0fee70d75c3ef7721afdd1665603146.ctex"]
+source_file="res://assets/sprites/UI/Radio_button.png"
+dest_files=["res://.godot/imported/Radio_button.png-397417f961d000468958d55be2f601f2.ctex"]
 
 [params]
 

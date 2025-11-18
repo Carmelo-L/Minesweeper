@@ -1,14 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://rh7bou8nqk33"]
+[gd_scene load_steps=5 format=3 uid="uid://rh7bou8nqk33"]
 
+[ext_resource type="Script" uid="uid://dawmdsf6m8wpj" path="res://scripts/game.gd" id="1_yqjtg"]
+[ext_resource type="Script" uid="uid://c38qqe04o43v5" path="res://scripts/gui.gd" id="3_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://dwf18xushsnes" path="res://scenes/gui.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://cnlg2wp6btv74" path="res://scenes/minefield.tscn" id="5_iywne"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_yqjtg")
 
 [node name="Tiles" type="Node" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-62, -55)
+position = Vector2(268, 139)
 zoom = Vector2(2, 2)
 
+[node name="GUI" parent="." instance=ExtResource("3_lnu2h")]
+script = ExtResource("3_lbhrr")
+
 [node name="Minefield" parent="." instance=ExtResource("5_iywne")]
-position = Vector2(-160, -166)
+position = Vector2(7, 41)
+
+[connection signal="flags_edited" from="Minefield" to="." method="_on_minefield_flags_edited"]

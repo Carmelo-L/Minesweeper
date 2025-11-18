@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ce8wmjhbkmmjy"
-path="res://.godot/imported/num_atlas.png-3ea4a6e622cc158c21adba92fd3b0c43.ctex"
+uid="uid://dbo5wtoew87b0"
+path="res://.godot/imported/Flag.png-c727ba5b209f5ca577f9706d5409ae23.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/num_atlas.png"
-dest_files=["res://.godot/imported/num_atlas.png-3ea4a6e622cc158c21adba92fd3b0c43.ctex"]
+source_file="res://assets/sprites/contents/Flag.png"
+dest_files=["res://.godot/imported/Flag.png-c727ba5b209f5ca577f9706d5409ae23.ctex"]
 
 [params]
 

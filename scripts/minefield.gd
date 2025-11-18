@@ -1,27 +1,33 @@
+class_name Minefield
+
 extends Node2D
 
-const LEFT_CLICK: int 	= 1
-const RIGHT_CLICK: int 	= 2
-const NO_SPRITE: int 	= -1
-const EMPTY: int		= 0
-const BOMB: int 		= 1
-const EMPTY_TILE_SPR 	= {
+signal flags_edited(edit)
+
+const LEFT_CLICK: int 		= 1
+const RIGHT_CLICK: int 		= 2
+const NO_SPRITE: int 		= -1
+const EMPTY: int			= 0
+const BOMB: int 			= 1
+const GAINED_FLAG: int 		= 1
+const USED_FLAG: int 		= -1
+const EMPTY_TILE_SPR 		= {
 	"id": 0,
 	"atlas": Vector2i(0,0),
 }
-const TILE_SPR 			= {
+const TILE_SPR 				= {
 	"id": 1,
 	"atlas": Vector2i(0,0),
 }
-const FLAG_SPR 			= {
+const FLAG_SPR 				= {
 	"id": 2,
 	"atlas": Vector2i(0,0),
 }
-const CHECKED_SPR 		= {
+const CHECKED_SPR 			= {
 	"id": 2,
 	"atlas": Vector2i(0,0),
 }
-const BOMB_SPR			= {
+const BOMB_SPR				= {
 	"id": 3,
 	"atlas": Vector2i(0,0),
 }
@@ -30,23 +36,24 @@ const BOMB_BACKGROUND_SPR	= {
 	"atlas": Vector2i(0,0),
 }
 # atlas coordinates of number sprites from 1-8
-const NUMBER_SPRITES: Array[Vector2i] = [ Vector2i(1,2), Vector2i(0,0), 
+const NUMBER_SPRITES: Array[Vector2i] = [Vector2i(1,2), Vector2i(0,0), 
 		Vector2i(1,0), Vector2i(2,0), Vector2i(0,1), Vector2i(1,1), 
 		Vector2i(2,1), Vector2i(0,2)]
 const NUM_ID: int = 13
 
-@onready var minefield_checked: TileMapLayer = $"Minefield - Checked"
+@export var rows: int
+@export var cols: int
+@export var bombs: int
+
+var first_click: bool
+var flags: int
+
+@onready var minefield_checked: TileMapLayer 	= $"Minefield - Checked"
 @onready var minefield_background: TileMapLayer = $"Minefield - Background"
-@onready var minefield_contents: TileMapLayer = $"Minefield - Contents"
-@onready var minefield_tile: TileMapLayer = $"Minefield - Tile"
-@onready var minefield_flag: TileMapLayer = $"Minefield - Flag"
+@onready var minefield_contents: TileMapLayer 	= $"Minefield - Contents"
+@onready var minefield_tile: TileMapLayer 		= $"Minefield - Tile"
+@onready var minefield_flag: TileMapLayer 		= $"Minefield - Flag"
 
-@export var rows: int	= 8
-@export var cols: int	= 8
-@export var bombs: int	= 8
-
-var flags: int = bombs
-var first_click: bool = true
 
 ## Sets minefield background, tile, and contents layer to appropriate sprites
 func _initialise_minefield() -> void:
@@ -62,6 +69,11 @@ func _is_checked(coords: Vector2i) -> bool:
 	return minefield_checked.get_cell_source_id(coords) == CHECKED_SPR.id
 
 
+func _flag_signal(quantity: int) -> void:
+	flags += quantity
+	flags_edited.emit(flags)
+
+
 ## Adds a flag to a given tile if there is an untouched tile, removes flag on given tile 
 ## 	if flag is present or adjacently checked
 ## coords: coordinates of the given tilemap cell
@@ -71,14 +83,15 @@ func _add_or_remove_flag(coords: Vector2i) -> void:
 
 	if (flag_cell_id == NO_SPRITE and 
 			tile_cell_id == TILE_SPR.id and 
-			(not _is_checked(coords))):
+			not _is_checked(coords) and 
+			flags > 0):
 
 		minefield_flag.set_cell(coords, FLAG_SPR.id, FLAG_SPR.atlas)
-		flags -= 1
+		_flag_signal(USED_FLAG)
+		
 	elif flag_cell_id == FLAG_SPR.id:
-
 		minefield_flag.erase_cell(coords)
-		flags += 1
+		_flag_signal(GAINED_FLAG)
 
 
 func _is_bomb(coords: Vector2i) -> bool:
@@ -116,7 +129,8 @@ func _clear_tile(coords: Vector2i) -> void:
 	
 	if flag_cell_id == FLAG_SPR.id: 
 		minefield_flag.erase_cell(coords)
-		flags += 1
+		_flag_signal(GAINED_FLAG)
+		
 	minefield_tile.erase_cell(coords)
 	minefield_checked.set_cell(coords, CHECKED_SPR.id, CHECKED_SPR.atlas)
 
@@ -210,8 +224,9 @@ func _start_game() -> void:
 	_initialise_minefield()
 	_generate_bombs()
 
-
-func _ready():
+func _ready() -> void:
+	flags = bombs
+	first_click = true
 	_start_game()
 
 
