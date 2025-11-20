@@ -3,6 +3,7 @@ class_name Minefield
 extends Node2D
 
 signal flags_edited(edit)
+signal game_state_changed(state)
 
 const LEFT_CLICK: int 		= 1
 const RIGHT_CLICK: int 		= 2
@@ -15,23 +16,23 @@ const EMPTY_TILE_SPR 		= {
 	"id": 0,
 	"atlas": Vector2i(0,0),
 }
-const TILE_SPR 				= {
+const TILE_SPR: Dictionary 				= {
 	"id": 1,
 	"atlas": Vector2i(0,0),
 }
-const FLAG_SPR 				= {
+const FLAG_SPR: Dictionary 				= {
 	"id": 2,
 	"atlas": Vector2i(0,0),
 }
-const CHECKED_SPR 			= {
+const CHECKED_SPR: Dictionary 			= {
 	"id": 2,
 	"atlas": Vector2i(0,0),
 }
-const BOMB_SPR				= {
+const BOMB_SPR: Dictionary				= {
 	"id": 3,
 	"atlas": Vector2i(0,0),
 }
-const BOMB_BACKGROUND_SPR	= {
+const BOMB_BACKGROUND_SPR: Dictionary	= {
 	"id": 4,
 	"atlas": Vector2i(0,0),
 }
@@ -40,12 +41,15 @@ const NUMBER_SPRITES: Array[Vector2i] = [Vector2i(1,2), Vector2i(0,0),
 		Vector2i(1,0), Vector2i(2,0), Vector2i(0,1), Vector2i(1,1), 
 		Vector2i(2,1), Vector2i(0,2)]
 const NUM_ID: int = 13
+const GAME_STOPPED: bool = false
+const GAME_STARTED: bool = true
 
 @export var rows: int
 @export var cols: int
 @export var bombs: int
 
 var first_click: bool
+var game_ongoing: bool = true
 var flags: int
 
 @onready var minefield_checked: TileMapLayer 	= $"Minefield - Checked"
@@ -55,13 +59,18 @@ var flags: int
 @onready var minefield_flag: TileMapLayer 		= $"Minefield - Flag"
 
 
-## Sets minefield background, tile, and contents layer to appropriate sprites
+## Clears all sprites then ets minefield background, tile, and contents layer to appropriate sprites
 func _initialise_minefield() -> void:
+	minefield_checked.clear()
+	minefield_background.clear()
+	minefield_contents.clear()
+	minefield_tile.clear()
+	minefield_flag.clear()
+	
 	for c in cols:
 		for r in rows:
 			var coords:= Vector2i(c, r)
 			minefield_background.set_cell(coords, EMPTY_TILE_SPR.id, EMPTY_TILE_SPR.atlas)
-			minefield_contents.set_cell(coords, NO_SPRITE)
 			minefield_tile.set_cell(coords, TILE_SPR.id, TILE_SPR.atlas)
 
 
@@ -112,6 +121,11 @@ func _expose_bombs() -> void:
 		minefield_tile.erase_cell(tile)
 
 
+func _game_over() -> void:
+	game_ongoing = GAME_STOPPED
+	game_state_changed.emit(GAME_STOPPED)
+
+
 ## Handles logic results of clicking on a tile
 ## coords: coordinates of the given tilemap cell
 func _remove_tile(coords: Vector2i) -> void:	
@@ -119,6 +133,7 @@ func _remove_tile(coords: Vector2i) -> void:
 		minefield_tile.set_cell(coords, BOMB_SPR.id, BOMB_SPR.atlas)
 		minefield_background.set_cell(coords, BOMB_BACKGROUND_SPR.id, BOMB_BACKGROUND_SPR.atlas)
 		_expose_bombs()
+		_game_over()
 	else:
 		_clear_adj_tiles(coords)
 
@@ -195,18 +210,16 @@ func _click_tile(coords: Vector2i) -> void:
 		_clear_adj_tiles(coords)
 
 
-## Fills minefield matrix and tilemap layer with bombs
-# @tutorial: https://tait.tech/2020/09/12/minesweeper/
+## Fills tilemap layer with bombs
 func _generate_bombs() -> void:
 	var random = RandomNumberGenerator.new()
 	var bomb_count: int = 0
 	
 	while bomb_count < bombs:
-		var r: int = random.randi_range(1, rows * cols) - 1
-		var x: int = r % cols
-		var y: int = floor(r / rows)
-		var coords:= Vector2i(x, y)
-		
+		var r_x: int = random.randi_range(0, cols - 1)
+		var r_y: int = random.randi_range(0, rows - 1)
+		var coords:= Vector2i(r_x, r_y)
+
 		if not _is_bomb(coords):
 			minefield_contents.set_cell(coords, BOMB_SPR.id, BOMB_SPR.atlas)
 			bomb_count += 1
@@ -216,8 +229,10 @@ func _generate_bombs() -> void:
 func _start_empty(coords: Vector2i) -> void:
 	while (minefield_contents.get_cell_source_id(coords) != NO_SPRITE or
 			_get_adj_bombs(_get_adj_cells(coords)) != 0):
+				
 		_start_game()
 	first_click = false
+	game_state_changed.emit(GAME_STARTED)
 
 
 func _start_game() -> void:
@@ -227,14 +242,21 @@ func _start_game() -> void:
 func _ready() -> void:
 	flags = bombs
 	first_click = true
+	game_ongoing = true
 	_start_game()
 
 
 func _input(event: InputEvent) -> void:
-	if not event is InputEventMouseButton or not event.pressed:
+	if (not event is InputEventMouseButton 
+			or not event.pressed
+			or game_ongoing == GAME_STOPPED):
 		return
 	
 	var coords: Vector2i = minefield_tile.local_to_map(get_local_mouse_position())
+	
+	if ((coords.x < 0 or coords.x > cols or 
+			coords.y < 0 or coords.y > rows)):
+		return
 	
 	match event.button_index:
 		RIGHT_CLICK:

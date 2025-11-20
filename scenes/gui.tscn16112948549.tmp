@@ -1,0 +1,255 @@
+[gd_scene load_steps=17 format=3 uid="uid://dwf18xushsnes"]
+
+[ext_resource type="Script" uid="uid://c38qqe04o43v5" path="res://scripts/gui.gd" id="1_7yii4"]
+[ext_resource type="Texture2D" uid="uid://btfx4ejratpj3" path="res://assets/sprites/UI/GUI_background.png" id="1_efmwq"]
+[ext_resource type="Texture2D" uid="uid://dbo5wtoew87b0" path="res://assets/sprites/contents/Flag.png" id="2_ynd5l"]
+[ext_resource type="FontFile" uid="uid://bd4fa3sjddoan" path="res://assets/fonts/ByteBounce.ttf" id="3_b8iy7"]
+[ext_resource type="Texture2D" uid="uid://bp5nrxtdv7q5f" path="res://assets/sprites/UI/Button_pressed.png" id="4_b8iy7"]
+[ext_resource type="Texture2D" uid="uid://e4j0awfaab6k" path="res://assets/sprites/UI/Button_normal.png" id="4_jqlde"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_08a8y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ynd5l"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_08a8y"]
+content_margin_left = 13.0
+content_margin_right = 13.0
+content_margin_bottom = 2.0
+texture = ExtResource("4_jqlde")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7yii4"]
+content_margin_left = 11.0
+content_margin_right = 11.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4yt8u"]
+content_margin_left = 11.0
+content_margin_right = 13.0
+texture = ExtResource("4_b8iy7")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jqlde"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_08a8y"]
+bg_color = Color(0.60784316, 0.6784314, 0.7176471, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.4627451, 0.4627451, 0.4627451, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4yt8u"]
+
+[sub_resource type="Theme" id="Theme_ynd5l"]
+OptionButton/colors/font_color = Color(1, 1, 1, 1)
+OptionButton/fonts/font = ExtResource("3_b8iy7")
+OptionButton/icons/arrow = SubResource("ImageTexture_08a8y")
+OptionButton/styles/focus = SubResource("StyleBoxEmpty_ynd5l")
+OptionButton/styles/hover = SubResource("StyleBoxTexture_08a8y")
+OptionButton/styles/normal = SubResource("StyleBoxEmpty_7yii4")
+OptionButton/styles/pressed = SubResource("StyleBoxTexture_4yt8u")
+PopupMenu/fonts/font = ExtResource("3_b8iy7")
+PopupMenu/fonts/title_font = ExtResource("3_b8iy7")
+PopupMenu/styles/hover = SubResource("StyleBoxFlat_jqlde")
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_08a8y")
+PopupMenu/styles/separator = SubResource("StyleBoxEmpty_4yt8u")
+Tree/fonts/font = ExtResource("3_b8iy7")
+Tree/fonts/title_button_font = ExtResource("3_b8iy7")
+
+[sub_resource type="Theme" id="Theme_08a8y"]
+
+[node name="GUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 124.0
+offset_bottom = 153.0
+script = ExtResource("1_7yii4")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Top" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="TopTexture" type="NinePatchRect" parent="MarginContainer/VBoxContainer/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_efmwq")
+region_rect = Rect2(0, 0, 64, 23)
+patch_margin_left = 6
+patch_margin_top = 7
+patch_margin_right = 6
+patch_margin_bottom = 5
+
+[node name="Infobar" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Top"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 2
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/Top/Infobar"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="Flags" type="MarginContainer" parent="MarginContainer/VBoxContainer/Top/Infobar"]
+layout_mode = 2
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 4
+
+[node name="FlagInfo" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Top/Infobar/Flags"]
+custom_minimum_size = Vector2(30, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 2
+
+[node name="FlagIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/Top/Infobar/Flags/FlagInfo"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_ynd5l")
+
+[node name="FlagCount" type="Label" parent="MarginContainer/VBoxContainer/Top/Infobar/Flags/FlagInfo"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_b8iy7")
+theme_override_font_sizes/font_size = 16
+text = "00"
+vertical_alignment = 1
+
+[node name="DifficultySelect" type="MarginContainer" parent="MarginContainer/VBoxContainer/Top/Infobar"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 20.0
+
+[node name="DifficultyChoices" type="OptionButton" parent="MarginContainer/VBoxContainer/Top/Infobar/DifficultySelect"]
+texture_filter = 1
+custom_minimum_size = Vector2(50, 15)
+layout_mode = 2
+theme = SubResource("Theme_ynd5l")
+autowrap_trim_flags = 0
+selected = 0
+fit_to_longest_item = false
+allow_reselect = true
+item_count = 5
+popup/item_0/text = "Easy"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Hard"
+popup/item_2/id = 2
+popup/item_3/text = "Extreme"
+popup/item_3/id = 3
+popup/item_4/text = "Custom"
+popup/item_4/id = 4
+
+[node name="PopupMenu" type="PopupMenu" parent="MarginContainer/VBoxContainer/Top/Infobar/DifficultySelect/DifficultyChoices"]
+canvas_item_default_texture_filter = 0
+oversampling_override = 1.0
+size = Vector2i(100, 156)
+visible = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Top/Infobar/DifficultySelect/DifficultyChoices/PopupMenu"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Top/Infobar/DifficultySelect/DifficultyChoices/PopupMenu/MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+
+[node name="Columns" type="Label" parent="MarginContainer/VBoxContainer/Top/Infobar/DifficultySelect/DifficultyChoices/PopupMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_08a8y")
+theme_override_fonts/font = ExtResource("3_b8iy7")
+text = "Columns"
+
+[node name="ColSelect" type="SpinBox" parent="MarginContainer/VBoxContainer/Top/Infobar/DifficultySelect/DifficultyChoices/PopupMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+min_value = 8.0
+max_value = 150.0
+value = 8.0
+rounded = true
+
+[node name="Rows" type="Label" parent="MarginContainer/VBoxContainer/Top/Infobar/DifficultySelect/DifficultyChoices/PopupMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_08a8y")
+theme_override_fonts/font = ExtResource("3_b8iy7")
+text = "Rows"
+
+[node name="RowSelect2" type="SpinBox" parent="MarginContainer/VBoxContainer/Top/Infobar/DifficultySelect/DifficultyChoices/PopupMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+min_value = 8.0
+max_value = 150.0
+value = 8.0
+rounded = true
+
+[node name="Bombs" type="Label" parent="MarginContainer/VBoxContainer/Top/Infobar/DifficultySelect/DifficultyChoices/PopupMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_08a8y")
+theme_override_fonts/font = ExtResource("3_b8iy7")
+text = "Bombs"
+
+[node name="BombSelect3" type="SpinBox" parent="MarginContainer/VBoxContainer/Top/Infobar/DifficultySelect/DifficultyChoices/PopupMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 22500.0
+rounded = true
+
+[node name="Submit" type="Label" parent="MarginContainer/VBoxContainer/Top/Infobar/DifficultySelect/DifficultyChoices/PopupMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_08a8y")
+theme_override_fonts/font = ExtResource("3_b8iy7")
+text = "Submit"
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/Top/Infobar/DifficultySelect/DifficultyChoices/PopupMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Stopwatch" type="MarginContainer" parent="MarginContainer/VBoxContainer/Top/Infobar"]
+custom_minimum_size = Vector2(14, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/margin_bottom = 4
+
+[node name="Time" type="Label" parent="MarginContainer/VBoxContainer/Top/Infobar/Stopwatch"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_b8iy7")
+theme_override_font_sizes/font_size = 16
+text = "00"
+vertical_alignment = 1
+
+[node name="Spacer2" type="Control" parent="MarginContainer/VBoxContainer/Top/Infobar"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Bottom" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BottomTexture" type="NinePatchRect" parent="MarginContainer/VBoxContainer/Bottom"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_efmwq")
+region_rect = Rect2(0, 20, 64, 44)
+patch_margin_left = 7
+patch_margin_top = 6
+patch_margin_right = 7
+patch_margin_bottom = 7
+
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/Top/Infobar/DifficultySelect/DifficultyChoices" to="." method="item_selected"]

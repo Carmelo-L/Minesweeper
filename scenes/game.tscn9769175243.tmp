@@ -1,28 +1,23 @@
 [gd_scene load_steps=5 format=3 uid="uid://rh7bou8nqk33"]
 
 [ext_resource type="Script" uid="uid://dawmdsf6m8wpj" path="res://scripts/game.gd" id="1_yqjtg"]
+[ext_resource type="Script" uid="uid://diljljrivrsnj" path="res://scripts/sub_viewport.gd" id="2_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dwf18xushsnes" path="res://scenes/gui.tscn" id="3_lnu2h"]
-[ext_resource type="PackedScene" uid="uid://ca0o48sbx1l5e" path="res://scenes/custom_panel.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://cnlg2wp6btv74" path="res://scenes/minefield.tscn" id="5_iywne"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_yqjtg")
 
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(200, 514)
+script = ExtResource("2_lbhrr")
+
+[node name="Tiles" type="Node" parent="."]
+
 [node name="GUI" parent="." instance=ExtResource("3_lnu2h")]
 
 [node name="Minefield" parent="." instance=ExtResource("5_iywne")]
 position = Vector2(7, 35)
-
-[node name="CustomPanel" parent="." instance=ExtResource("4_lbhrr")]
-visible = false
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 20.0
-offset_right = 158.0
-grow_horizontal = 2
-size_flags_horizontal = 8
-metadata/_edit_use_anchors_ = true
 
 [connection signal="difficulty_selected" from="GUI" to="." method="_on_difficulty_selected"]
 [connection signal="flags_edited" from="Minefield" to="." method="_on_minefield_flags_edited"]
