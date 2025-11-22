@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8wy3urwvnewq"]
+
+[ext_resource type="Theme" uid="uid://lu8fydq6kgla" path="res://assets/Themes/panel.tres" id="1_erk2x"]
+[ext_resource type="FontFile" uid="uid://bd4fa3sjddoan" path="res://assets/fonts/ByteBounce.ttf" id="2_2l6cc"]
+
+[node name="WinScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -63.0
+offset_top = -17.0
+offset_right = 63.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(75, 25)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+theme = ExtResource("1_erk2x")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.25
+offset_top = 0.3333435
+offset_right = -0.25
+offset_bottom = 0.3333435
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="YouWin" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2l6cc")
+text = "You Win!"
+horizontal_alignment = 1
+
+[node name="FinalTime" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2l6cc")
+text = "Time: xxx seconds"
+horizontal_alignment = 1

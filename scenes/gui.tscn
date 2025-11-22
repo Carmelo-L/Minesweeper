@@ -47,7 +47,7 @@ Tree/fonts/title_button_font = ExtResource("3_b8iy7")
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
-offset_right = 183.0
+offset_right = 123.0
 offset_bottom = 153.0
 script = ExtResource("1_7yii4")
 
@@ -78,35 +78,39 @@ patch_margin_top = 7
 patch_margin_right = 6
 patch_margin_bottom = 5
 
-[node name="Infobar" type="HBoxContainer" parent="MarginContainer/MainGame/Top"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MainGame/Top"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+
+[node name="Infobar" type="HBoxContainer" parent="MarginContainer/MainGame/Top/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 2
 
-[node name="Spacer" type="Control" parent="MarginContainer/MainGame/Top/Infobar"]
+[node name="Spacer" type="Control" parent="MarginContainer/MainGame/Top/MarginContainer/Infobar"]
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
-[node name="Flags" type="MarginContainer" parent="MarginContainer/MainGame/Top/Infobar"]
+[node name="Flags" type="MarginContainer" parent="MarginContainer/MainGame/Top/MarginContainer/Infobar"]
 layout_mode = 2
 size_flags_vertical = 0
 size_flags_stretch_ratio = 0.0
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_bottom = 4
 
-[node name="FlagInfo" type="HBoxContainer" parent="MarginContainer/MainGame/Top/Infobar/Flags"]
+[node name="FlagInfo" type="HBoxContainer" parent="MarginContainer/MainGame/Top/MarginContainer/Infobar/Flags"]
 custom_minimum_size = Vector2(30, 20)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_constants/separation = 2
 
-[node name="FlagIcon" type="TextureRect" parent="MarginContainer/MainGame/Top/Infobar/Flags/FlagInfo"]
+[node name="FlagIcon" type="TextureRect" parent="MarginContainer/MainGame/Top/MarginContainer/Infobar/Flags/FlagInfo"]
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("2_ynd5l")
 
-[node name="FlagCount" type="Label" parent="MarginContainer/MainGame/Top/Infobar/Flags/FlagInfo"]
+[node name="FlagCount" type="Label" parent="MarginContainer/MainGame/Top/MarginContainer/Infobar/Flags/FlagInfo"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -116,13 +120,13 @@ theme_override_font_sizes/font_size = 16
 text = "00"
 vertical_alignment = 1
 
-[node name="DifficultySelect" type="MarginContainer" parent="MarginContainer/MainGame/Top/Infobar"]
+[node name="DifficultySelect" type="MarginContainer" parent="MarginContainer/MainGame/Top/MarginContainer/Infobar"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 size_flags_stretch_ratio = 20.0
 
-[node name="DifficultyChoices" type="OptionButton" parent="MarginContainer/MainGame/Top/Infobar/DifficultySelect"]
+[node name="DifficultyChoices" type="OptionButton" parent="MarginContainer/MainGame/Top/MarginContainer/Infobar/DifficultySelect"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 15)
 layout_mode = 2
@@ -143,13 +147,13 @@ popup/item_3/id = 3
 popup/item_4/text = "Custom"
 popup/item_4/id = 4
 
-[node name="Stopwatch" type="MarginContainer" parent="MarginContainer/MainGame/Top/Infobar"]
+[node name="Stopwatch" type="MarginContainer" parent="MarginContainer/MainGame/Top/MarginContainer/Infobar"]
 custom_minimum_size = Vector2(14, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_constants/margin_bottom = 4
 
-[node name="Time" type="Label" parent="MarginContainer/MainGame/Top/Infobar/Stopwatch"]
+[node name="Time" type="Label" parent="MarginContainer/MainGame/Top/MarginContainer/Infobar/Stopwatch"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -159,7 +163,7 @@ theme_override_font_sizes/font_size = 16
 text = "00"
 vertical_alignment = 1
 
-[node name="Spacer2" type="Control" parent="MarginContainer/MainGame/Top/Infobar"]
+[node name="Spacer2" type="Control" parent="MarginContainer/MainGame/Top/MarginContainer/Infobar"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
@@ -177,4 +181,4 @@ patch_margin_top = 6
 patch_margin_right = 7
 patch_margin_bottom = 7
 
-[connection signal="item_selected" from="MarginContainer/MainGame/Top/Infobar/DifficultySelect/DifficultyChoices" to="." method="item_selected"]
+[connection signal="item_selected" from="MarginContainer/MainGame/Top/MarginContainer/Infobar/DifficultySelect/DifficultyChoices" to="." method="item_selected"]

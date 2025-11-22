@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://rh7bou8nqk33"]
+[gd_scene load_steps=7 format=3 uid="uid://rh7bou8nqk33"]
 
 [ext_resource type="Script" uid="uid://dawmdsf6m8wpj" path="res://scripts/game.gd" id="1_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://dwf18xushsnes" path="res://scenes/gui.tscn" id="3_lnu2h"]
-[ext_resource type="PackedScene" uid="uid://ca0o48sbx1l5e" path="res://scenes/custom_panel.tscn" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://d4nuq8sf0y5vw" path="res://scenes/custom_menu.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://cnlg2wp6btv74" path="res://scenes/minefield.tscn" id="5_iywne"]
+[ext_resource type="PackedScene" uid="uid://c8wy3urwvnewq" path="res://scenes/win_screen.tscn" id="5_p57ef"]
+[ext_resource type="Script" uid="uid://poj8tdme5rew" path="res://scripts/win_screen.gd" id="6_p57ef"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_yqjtg")
@@ -13,17 +15,14 @@ script = ExtResource("1_yqjtg")
 [node name="Minefield" parent="." instance=ExtResource("5_iywne")]
 position = Vector2(7, 35)
 
-[node name="CustomPanel" parent="." instance=ExtResource("4_lbhrr")]
+[node name="Custom_Menu" parent="." instance=ExtResource("4_lbhrr")]
 visible = false
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 20.0
-offset_right = 158.0
-grow_horizontal = 2
-size_flags_horizontal = 8
-metadata/_edit_use_anchors_ = true
+
+[node name="WinScreen" parent="." instance=ExtResource("5_p57ef")]
+script = ExtResource("6_p57ef")
 
 [connection signal="difficulty_selected" from="GUI" to="." method="_on_difficulty_selected"]
 [connection signal="flags_edited" from="Minefield" to="." method="_on_minefield_flags_edited"]
 [connection signal="game_state_changed" from="Minefield" to="." method="_on_minefield_game_state_changed"]
+[connection signal="game_won" from="Minefield" to="." method="_on_minefield_game_won"]
+[connection signal="settings_finalised" from="Custom_Menu" to="." method="_on_custom_menu_settings_finalised"]

@@ -5,8 +5,8 @@ signal difficulty_selected(index)
 const TILEMAP_SQUARE_LENGTH: int = 16
 const BACKGROUND_SPR_OFFSET: int = 7
 
-@onready var flag_count: Label = $MarginContainer/MainGame/Top/Infobar/Flags/FlagInfo/FlagCount
-@onready var time: Label = $MarginContainer/MainGame/Top/Infobar/Stopwatch/Time
+@onready var flag_count: Label = $MarginContainer/MainGame/Top/MarginContainer/Infobar/Flags/FlagInfo/FlagCount
+@onready var time: Label = $MarginContainer/MainGame/Top/MarginContainer/Infobar/Stopwatch/Time
 
 
 func item_selected(index: int) -> void:

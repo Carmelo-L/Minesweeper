@@ -4,6 +4,7 @@ extends Node2D
 
 signal flags_edited(edit)
 signal game_state_changed(state)
+signal game_won
 
 const LEFT_CLICK: int 		= 1
 const RIGHT_CLICK: int 		= 2
@@ -51,6 +52,7 @@ const GAME_STARTED: bool = true
 var first_click: bool
 var game_ongoing: bool = true
 var flags: int
+var all_bombs: Array[Vector2i]
 
 @onready var minefield_checked: TileMapLayer 	= $"Minefield - Checked"
 @onready var minefield_background: TileMapLayer = $"Minefield - Background"
@@ -150,6 +152,15 @@ func _clear_tile(coords: Vector2i) -> void:
 	minefield_checked.set_cell(coords, CHECKED_SPR.id, CHECKED_SPR.atlas)
 
 
+func _game_won() -> bool:
+	var game_won: bool = true
+	var unchecked_tiles: Array[Vector2i] = minefield_tile.get_used_cells()
+	
+	for tile in unchecked_tiles:
+		if tile not in all_bombs:
+			game_won = false
+	return game_won
+
 ### coords: coordinates of the given tilemap cell
 func _get_adj_cells(coords: Vector2i) -> Array[Vector2i]:
 	var adj_cells: Array[Vector2i] = minefield_contents.get_surrounding_cells(coords)
@@ -232,6 +243,7 @@ func _start_empty(coords: Vector2i) -> void:
 				
 		_start_game()
 	first_click = false
+	all_bombs = _get_bombs()
 	game_state_changed.emit(GAME_STARTED)
 
 
@@ -265,3 +277,6 @@ func _input(event: InputEvent) -> void:
 			if first_click:
 				_start_empty(coords)
 			_click_tile(coords)
+	
+	if _game_won():
+		game_won.emit()

@@ -1,0 +1,126 @@
+[gd_scene load_steps=10 format=3 uid="uid://d4nuq8sf0y5vw"]
+
+[ext_resource type="Script" uid="uid://hayuamcdr818" path="res://scripts/custom_menu.gd" id="1_3mcln"]
+[ext_resource type="Script" uid="uid://dpx5fer0uayvg" path="res://scripts/menu_gui.gd" id="1_ag6p2"]
+[ext_resource type="Theme" uid="uid://lu8fydq6kgla" path="res://assets/Themes/panel.tres" id="1_r23hf"]
+[ext_resource type="Texture2D" uid="uid://e4j0awfaab6k" path="res://assets/sprites/UI/Button_normal.png" id="2_38uqu"]
+[ext_resource type="Theme" uid="uid://c6063v4vsjpbk" path="res://assets/Themes/label.tres" id="2_m3mok"]
+[ext_resource type="Texture2D" uid="uid://bp5nrxtdv7q5f" path="res://assets/sprites/UI/Button_pressed.png" id="3_m3mok"]
+[ext_resource type="FontFile" uid="uid://bd4fa3sjddoan" path="res://assets/fonts/ByteBounce.ttf" id="4_ag6p2"]
+
+[sub_resource type="Theme" id="Theme_m3mok"]
+
+[sub_resource type="Theme" id="Theme_3mcln"]
+
+[node name="Custom_Menu" type="Window"]
+oversampling_override = 1.0
+initial_position = 1
+size = Vector2i(230, 300)
+unresizable = true
+always_on_top = true
+script = ExtResource("1_3mcln")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="MenuGui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ag6p2")
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuGui"]
+layout_mode = 0
+offset_right = 230.0
+offset_bottom = 300.0
+
+[node name="Panel" type="Panel" parent="MenuGui/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("1_r23hf")
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuGui/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 11
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuGui/MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Columns" type="Label" parent="MenuGui/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_m3mok")
+text = "Columns"
+
+[node name="ColSelect" type="SpinBox" parent="MenuGui/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = SubResource("Theme_m3mok")
+min_value = 8.0
+value = 8.0
+
+[node name="Rows" type="Label" parent="MenuGui/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_m3mok")
+text = "Rows"
+
+[node name="RowSelect" type="SpinBox" parent="MenuGui/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = SubResource("Theme_m3mok")
+min_value = 8.0
+value = 8.0
+
+[node name="Bombs" type="Label" parent="MenuGui/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_m3mok")
+text = "Bombs"
+
+[node name="BombSelect" type="SpinBox" parent="MenuGui/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = SubResource("Theme_m3mok")
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuGui/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="SubmitButton" type="TextureButton" parent="MenuGui/MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(55, 30)
+layout_mode = 2
+theme = SubResource("Theme_3mcln")
+texture_normal = ExtResource("2_38uqu")
+texture_pressed = ExtResource("3_m3mok")
+stretch_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuGui/MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer/SubmitButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubmitLabel" type="Label" parent="MenuGui/MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer/SubmitButton/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("2_m3mok")
+theme_override_fonts/font = ExtResource("4_ag6p2")
+text = "Submit"
+horizontal_alignment = 1
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="settings_chosen" from="MenuGui" to="." method="_on_settings_chosen"]
+[connection signal="pressed" from="MenuGui/MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer/SubmitButton" to="MenuGui" method="_on_submit_button_pressed"]
