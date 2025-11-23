@@ -14,5 +14,7 @@ func _on_submit_button_pressed() -> void:
 
 func _clamp_bombs() -> void:
 	var max_bombs: int = (col_select.value * row_select.value) - 1
+	print(bomb_select.value)
 	if bomb_select.value > max_bombs:
 		bomb_select.value = max_bombs
+	print(bomb_select.value)

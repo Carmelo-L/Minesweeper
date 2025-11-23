@@ -88,6 +88,7 @@ text = "Bombs"
 texture_filter = 1
 layout_mode = 2
 theme = SubResource("Theme_m3mok")
+max_value = 24440.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuGui/MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
